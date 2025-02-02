@@ -1,11 +1,11 @@
 import type {Route} from "./+types/home";
 import {Fruits} from "~/stores/fruits";
 import {Link} from "react-router";
-import {useLoading} from "~/hooks/useLoading";
+import {useLoadingControl} from "~/hooks/useLoadingControl";
 
-// 疑似的に 0 ~ 4 秒待機シュミレーション
+// 疑似的に 0 ~ 2 秒待機シュミレーション
 export const clientLoader= async ({params}: {id: string}): Promise<void> => {
-  await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 4000)));
+  await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 2000)));
 };
 
 export function meta({}: Route.MetaArgs) {
@@ -16,7 +16,8 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export default function Home() {
-  const {handleLink} = useLoading();
+  // ローディングを完了させる
+  useLoadingControl();
 
   return (
     <div
@@ -30,7 +31,6 @@ export default function Home() {
             <Link
               to={'/'+fruit.id}
               className="link"
-              onClick={handleLink}
             >
               <span className="emoji">{fruit.emoji}</span>
               <span className="name">{fruit.name}</span>

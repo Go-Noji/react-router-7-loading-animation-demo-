@@ -4,7 +4,7 @@ import {FruitContext} from "~/hooks/useFruit";
 import {useLocation} from "react-router";
 import type {Fruit} from "~/types/fruit";
 
-export const useLoading = () => {
+export const useLoadingControl = () => {
   // LoadingStatusContext を取得
   const [, setLoadingStatus] = useContext(LoadingStatusContext);
 
@@ -20,9 +20,6 @@ export const useLoading = () => {
   // 初回レンダリング時にローディングを完了させる
   useEffect(completeLoading, []);
 
-  // リンクをクリックした際にローディングアニメーションの中身を変更する
-  const handleLink = () => setLoadingStatus('loading');
-
   // メソッドの提供
-  return {handleLink, completeLoading};
+  return {completeLoading};
 };

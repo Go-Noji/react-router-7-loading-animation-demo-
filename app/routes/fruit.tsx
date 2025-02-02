@@ -1,7 +1,7 @@
 import type {Fruit} from "~/types/fruit";
 import {DefaultFruit, Fruits, getFruit} from "~/stores/fruits";
 import {Link} from "react-router";
-import {useLoading} from "~/hooks/useLoading";
+import {useLoadingControl} from "~/hooks/useLoadingControl";
 
 export function meta({data}: {data: Fruit}) {
   return [
@@ -12,8 +12,8 @@ export function meta({data}: {data: Fruit}) {
 
 // パラメータから特定の果物を取得する
 export const clientLoader= async ({params}: {id: string}): Promise<Fruit> => {
-  // 疑似的に 0 ~ 4 秒待機シュミレーション
-  await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 4000)));
+  // 疑似的に 0 ~ 2 秒待機シュミレーション
+  await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 2000)));
 
   // パラメータから果物を取得
   return getFruit(params.id);
@@ -23,7 +23,8 @@ export const clientLoader= async ({params}: {id: string}): Promise<Fruit> => {
 // export const loader = ({params}: {id: string}): Fruit => getFruit(params.id);
 
 export default function Fruit({loaderData: fruit}: {loaderData: Fruit}) {
-  const {handleLink} = useLoading();
+  // ローディングを完了させる
+  useLoadingControl();
 
   return (
     <div
@@ -39,7 +40,6 @@ export default function Fruit({loaderData: fruit}: {loaderData: Fruit}) {
             <Link
               to="/"
               className="brother"
-              onClick={handleLink}
             >🌴</Link>
           </li>
           {Fruits.map(fruit => (
@@ -50,7 +50,6 @@ export default function Fruit({loaderData: fruit}: {loaderData: Fruit}) {
             <Link
               to={'/'+fruit.id}
               className="brother"
-              onClick={handleLink}
             >{fruit.emoji}</Link>
           </li>
         ))}

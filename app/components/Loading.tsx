@@ -7,7 +7,13 @@ export default function Loading({children}: {children: React.ReactNode}) {
   const {fruit, setFruitByPathname} = useFruit();
 
   // 更新関数を注入しつつ useLoadingStatus フックを取得
-  const {loadingStatus, setLoadingStatus} = useLoadingStatus(setFruitByPathname);
+  const {loadingStatus, setLoadingStatus} = useLoadingStatus(async (pathname) => {
+    // 疑似的に 0 ~ 500 ミリ秒待機シュミレーション
+    await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 500)));
+
+    // パス名によって、フルーツの状態を変更する
+    setFruitByPathname(pathname);
+  });
 
   // どの子孫コンポーネントからでも状態を変更できるように、コンテキストを提供する
   return (
