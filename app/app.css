@@ -1,0 +1,134 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: "Noto Serif JP", serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  overflow: hidden;
+}
+.title {
+  font-size: 64px;
+  margin: 24px;
+}
+.fruits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: 100%;
+  max-width: 800px;
+  margin: 24px;
+  padding: 0;
+}
+.fruit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 16px;
+  margin: 8px;
+  padding: 0;
+  border: 1px solid #000;
+  border-radius: 8px;
+}
+.link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  color: #000;
+  font-size: 32px;
+  text-decoration: none;
+  width: 100%;
+  padding: 16px;
+}
+.name {
+  padding: 4px;
+}
+.fruit:hover {
+  mix-blend-mode: hard-light;
+}
+.emoji {
+  font-size: 64px;
+  white-space: nowrap;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 24px;
+}
+.description {
+  font-size: 24px;
+  margin: 24px;
+}
+.brothers {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brother {
+  font-size: 16px;
+  text-decoration: none;
+}
+
+@keyframes loadingAnimation {
+  0% {
+    width: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  100% {
+    width: 100%;
+    padding-top: 50%;
+    padding-bottom: 50%;
+  }
+}
+@keyframes loadingHiddenAnimation {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.loadingWrapper {
+  width: 300%;
+  height: 300vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  left: -100%;
+  top: -100%;
+  z-index: 4;
+}
+.loading {
+  border-radius: 100%;
+  position: relative;
+  overflow: hidden;
+  height: 0;
+  width: 100%;
+  padding-top: 50%;
+  padding-bottom: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  font-size: 128px;
+  animation: loadingAnimation .7s ease-in;
+}
+.loadingEnd {
+  opacity: 0;
+  pointer-events: none;
+  animation: loadingHiddenAnimation .7s ease-in;
+}
+.loadingHidden {
+  opacity: 0;
+  pointer-events: none;
+  animation: loadingHiddenAnimation .3s ease-in;
+}

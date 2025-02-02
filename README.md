@@ -1,0 +1,1 @@
+This demo uses React Router 7 to implement a rather cumbersome loading animation. 
