@@ -1,0 +1,1 @@
+import{r as o,q as a}from"./chunk-IR6S3I6Y-DC0prOOs.js";import{L as n}from"./useFruit-tGyt4YLI.js";const u=()=>{const[,s]=o.useContext(n),e=a(),t=()=>s("ready");return o.useEffect(t,[e.key,e.pathname]),o.useEffect(t,[]),{completeLoading:t}};export{u};

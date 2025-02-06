@@ -7,7 +7,7 @@ export default function Loading({children}: {children: React.ReactNode}) {
   const {fruit, setFruitByPathname} = useFruit();
 
   // 更新関数を注入しつつ useLoadingStatus フックを取得
-  const {loadingStatus, setLoadingStatus} = useLoadingStatus(async (pathname) => {
+  const {loadingStatus, setLoadingStatus, setAnimationEnd} = useLoadingStatus(async (pathname) => {
     // 疑似的に 0 ~ 500 ミリ秒待機シュミレーション
     await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 500)));
 
@@ -19,7 +19,11 @@ export default function Loading({children}: {children: React.ReactNode}) {
   return (
     <LoadingStatusContext.Provider value={[loadingStatus, setLoadingStatus]}>
       <div className={'loadingWrapper' + (loadingStatus === 'complete' ? ' loadingEnd' : '')}>
-        <div className={'loading' + (loadingStatus === 'complete' ? ' loadingEnd' : '')} style={{background: fruit.color}}>{fruit.emoji}</div>
+        <div
+          className={'loading' + (loadingStatus === 'complete' ? ' loadingEnd' : '')}
+          style={{background: fruit.color}}
+          onAnimationEnd={() => setAnimationEnd(true)}
+        >{fruit.emoji}</div>
       </div>
       <div className={loadingStatus === 'complete' ? '' : 'loadingHidden'}>
         {children}

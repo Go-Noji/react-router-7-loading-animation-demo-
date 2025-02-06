@@ -10,6 +10,9 @@ export function useLoadingStatus(setHandler: (pathname: string) => Promise<void>
   // 様々なコンポ―ネントから、「ローディング中」・「ローディング完了」を管理するためのステート
   const [loadingStatus, setLoadingStatus] = useState<LoadingStatus>('loading');
 
+  // ローディングアニメーションの終了状態を管理するためのステート
+  const [animationEnd, setAnimationEnd] = useState<boolean>(true);
+
   // ナビゲーション先の情報を解決する非同期関数を同期させるためのステート
   const [resolvedFunction, setResolvedFunction] = useState<Promise<void>>(Promise.resolve());
 
@@ -29,30 +32,33 @@ export function useLoadingStatus(setHandler: (pathname: string) => Promise<void>
       return;
     }
 
-    // ブロックされている場合、.7 秒後にナビゲーションを遅延実行する
+    // ブロックされている場合、ナビゲーション先の情報取得終了を待ってから、アニメーションを開始する
     (async () => {
-      // 解決を待つ
+      // ナビゲーション先の情報取得終了を待つ
       await resolvedFunction;
 
-      // アニメーションを開始しつつブロックを解除する
-      setTimeout(() => {
-        setLoadingStatus('loading');
-        blocker.proceed();
-      }, 700);
+      // アニメーションを開始させる
+      setLoadingStatus('loading');
+
+      // アニメーション終了状態を false に変更
+      setAnimationEnd(false);
+
+      // 遷移を再実行
+      blocker.proceed();
     })();
   }, [() => blocker.state]);
 
   // ローディング状態が 'ready' であれば、 .7 秒後にローディング完了にする
   useEffect(() => {
-    // ローディング状態が 'ready' でなければ、何もしない
-    if (loadingStatus !== 'ready') {
+    // ローディング状態が 'ready' でない or ローディングアニメーションが終了していなければ何もしない
+    if (loadingStatus !== 'ready' || ! animationEnd) {
       return;
     }
 
     // ローディング状態を 'complete' に変更する
-    setTimeout(() => setLoadingStatus('complete'), 700);
-  }, [loadingStatus]);
+    setLoadingStatus('complete');
+  }, [loadingStatus, animationEnd]);
 
   // LoadingStatusContext で伝播させるステートを返す
-  return {loadingStatus, setLoadingStatus, resolvedFunction};
+  return {loadingStatus, setLoadingStatus, resolvedFunction, setAnimationEnd};
 };
