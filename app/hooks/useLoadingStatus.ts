@@ -40,11 +40,13 @@ export function useLoadingStatus(setHandler: (pathname: string) => Promise<void>
       // アニメーションを開始させる
       setLoadingStatus('loading');
 
+      // まだアニメーションが終了判定でない場合だけ(= 一度だけ)、遷移を再実行
+      if ( ! animationEnd) {
+        blocker.proceed();
+      }
+
       // アニメーション終了状態を false に変更
       setAnimationEnd(false);
-
-      // 遷移を再実行
-      blocker.proceed();
     })();
   }, [() => blocker.state]);
 
