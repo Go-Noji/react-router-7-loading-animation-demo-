@@ -1,10 +1,6 @@
-import {createContext, useEffect, useState} from 'react';
-import {useBlocker, useNavigate, useParams} from "react-router";
+import {useEffect, useState} from 'react';
 import type {Fruit} from "~/types/fruit";
 import {DefaultFruit, getFruit} from "~/stores/fruits";
-
-// 下記 id, setId をグローバルに伝播させる Context をグローバルに作成
-export const FruitContext = createContext<[Fruit, (fruit: Fruit) => void]>([DefaultFruit, () => {}]);
 
 // ローディング状態を管理するためのフック
 export function useFruit() {

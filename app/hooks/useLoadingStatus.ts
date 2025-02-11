@@ -1,5 +1,5 @@
 import {createContext, useEffect, useState} from 'react';
-import {useBlocker, useNavigate} from "react-router";
+import {useBlocker} from "react-router";
 import type {LoadingStatus} from "~/types/loading";
 
 // 下記 status, setStatus をグローバルに伝播させる Context をグローバルに作成

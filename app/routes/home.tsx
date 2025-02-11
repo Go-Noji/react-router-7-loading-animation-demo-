@@ -4,7 +4,7 @@ import {Link} from "react-router";
 import {useLoadingControl} from "~/hooks/useLoadingControl";
 
 // 疑似的に 0 ~ 2 秒待機シュミレーション
-export const clientLoader= async ({params}: {id: string}): Promise<void> => {
+export const clientLoader= async (): Promise<void> => {
   await new Promise(resolve => setTimeout(resolve, Math.floor(Math.random() * 2000)));
 };
 

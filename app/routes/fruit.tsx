@@ -1,5 +1,5 @@
 import type {Fruit} from "~/types/fruit";
-import {DefaultFruit, Fruits, getFruit} from "~/stores/fruits";
+import {Fruits, getFruit} from "~/stores/fruits";
 import {Link} from "react-router";
 import {useLoadingControl} from "~/hooks/useLoadingControl";
 

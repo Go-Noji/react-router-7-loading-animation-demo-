@@ -1,8 +1,6 @@
 import {useContext, useEffect} from "react";
 import {LoadingStatusContext} from "~/hooks/useLoadingStatus";
-import {FruitContext} from "~/hooks/useFruit";
 import {useLocation} from "react-router";
-import type {Fruit} from "~/types/fruit";
 
 export const useLoadingControl = () => {
   // LoadingStatusContext を取得

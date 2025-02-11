@@ -1,5 +1,5 @@
 import {useLoadingStatus, LoadingStatusContext} from '~/hooks/useLoadingStatus';
-import {useFruit,} from "~/hooks/useFruit";
+import {useFruit} from "~/hooks/useFruit";
 
 // ローディングを実際に表示するコンポーネント
 export default function Loading({children}: {children: React.ReactNode}) {
